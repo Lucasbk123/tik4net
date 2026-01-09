@@ -22,12 +22,20 @@ jobs:
         run: dotnet restore tik4net.sln
 
       - name: Build
-        run: dotnet build tik4net.objects --configuration Release --no-restore
+        run: |
+          dotnet build tik4net --configuration Release --no-restore
+          dotnet build tik4net.objects --configuration Release --no-restore
 
       - name: Pack NuGet
         run: |
           VERSION=${GITHUB_REF_NAME#v}
           echo "Packing version $VERSION"
+
+          dotnet pack tik4net/tik4net.csproj \
+            --configuration Release \
+            --no-build \
+            -p:Version=$VERSION \
+            --output ./nupkg
 
           dotnet pack tik4net.objects/tik4net.objects.csproj \
             --configuration Release \
