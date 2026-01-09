@@ -22,7 +22,7 @@ jobs:
         run: dotnet restore tik4net.sln
 
       - name: Build
-        run: dotnet build tik4net.sln --configuration Release --no-restore
+        run: dotnet build tik4net.objects --configuration Release --no-restore
 
       - name: Pack NuGet
         run: |
